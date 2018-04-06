@@ -381,7 +381,13 @@ NSString static *const kWKYTPlayerSyndicationRegexPattern = @"^https://tpc.googl
             if (error) {
                 completionHandler(0, error);
             } else {
-                completionHandler([response doubleValue], nil);
+                @try {
+                    completionHandler([response doubleValue], nil);
+                }
+
+                @catch (NSException *exception) {
+                    completionHandler(0, nil);
+                }
             }
         }
     }];
